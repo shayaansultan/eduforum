@@ -11,7 +11,7 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// Add the cors middleware to your router
+	// Add the cors middleware to the router
 	r.Use(cors.Default())
 
 	// Ping test

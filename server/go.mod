@@ -1,4 +1,4 @@
-module example/eduforum-api
+module github.com/shayaansultan/eduforum/server
 
 go 1.21.5
 

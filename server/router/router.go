@@ -19,25 +19,16 @@ func SetupRouter() *gin.Engine {
 
 	// Ping DB
 	r.GET("/pingdb", func(c *gin.Context) {
-		db := database.GetDB()
-		if db == nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"message": "Failed to get database instance",
-			})
-			return
-		}
-
-		err := db.Ping()
+		err := database.PingDB()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"message": "Failed to ping database: " + err.Error(),
+				"message": "DB not connected",
 			})
-			return
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"message": "DB connected",
+			})
 		}
-
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Successfully connected to the database",
-		})
 	})
 
 	return r

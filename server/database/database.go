@@ -23,3 +23,7 @@ func InitDB(dataSourceName string) error {
 func GetDB() *sql.DB {
     return db
 }
+
+func PingDB() error {
+    return db.Ping()
+}

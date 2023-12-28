@@ -3,12 +3,16 @@ package router
 import (
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/shayaansultan/eduforum/server/database"
 )
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	// Add the cors middleware to your router
+	r.Use(cors.Default())
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {

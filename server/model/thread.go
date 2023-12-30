@@ -18,6 +18,7 @@ type Thread struct {
 	CommentCount int       `json:"comment_count"`
 	CreatedAt    time.Time `json:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at"`
+	IsEdited     bool      `json:"is_edited"`
 }
 
 func GetThreadByID(id int) (*Thread, error) {
@@ -26,9 +27,17 @@ func GetThreadByID(id int) (*Thread, error) {
 
 	thread := &Thread{}
 	var createdAt, updatedAt []byte
-	err := row.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username, &thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt)
+	var isEdited int
+	err := row.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username,
+		&thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt, &isEdited)
 	if err != nil {
 		return nil, err
+	}
+
+	if isEdited == 1 {
+		thread.IsEdited = true
+	} else {
+		thread.IsEdited = false
 	}
 
 	thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
@@ -55,9 +64,17 @@ func GetAllThreads() ([]*Thread, error) {
 	for rows.Next() {
 		thread := &Thread{}
 		var createdAt, updatedAt []byte
-		err := rows.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username, &thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt)
+		var isEdited int
+		err := rows.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username,
+			&thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt, &isEdited)
 		if err != nil {
 			return nil, err
+		}
+
+		if isEdited == 1 {
+			thread.IsEdited = true
+		} else {
+			thread.IsEdited = false
 		}
 
 		thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))

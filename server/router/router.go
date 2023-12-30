@@ -39,6 +39,7 @@ func SetupRouter() *gin.Engine {
 	// User routes
 	r.GET("/users/:id", controller.GetUser)
 	r.GET("/users", controller.GetAllUsers)
+	r.GET("/users/username/:username", controller.GetUserByUsername)
 
 	return r
 }

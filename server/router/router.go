@@ -53,8 +53,8 @@ func SetupRouter() *gin.Engine {
 
 	// Thread routes
 	r.GET("/threads/:id", controller.GetThreadByID)
-	
-	
+	r.GET("/threads", controller.GetAllThreads)
+	r.POST("/threads", controller.CreateThread)
 
 	return r
 }

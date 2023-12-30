@@ -42,3 +42,47 @@ func GetThreadByID(id int) (*Thread, error) {
 
 	return thread, nil
 }
+
+func GetAllThreads() ([]*Thread, error) {
+	db := database.GetDB()
+	rows, err := db.Query("SELECT * FROM ThreadsView")
+	if err != nil {
+		return nil, err
+	}
+
+	threads := make([]*Thread, 0)
+	for rows.Next() {
+		thread := &Thread{}
+		var createdAt, updatedAt []byte
+		err := rows.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username, &thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
+		if err != nil {
+			return nil, err
+		}
+
+		thread.UpdatedAt, err = time.Parse("2006-01-02 15:04:05", string(updatedAt))
+		if err != nil {
+			return nil, err
+		}
+
+		threads = append(threads, thread)
+	}
+
+	return threads, nil
+}
+
+func CreateThread(title string, content string, userID int, categoryID int) error {
+	db := database.GetDB()
+	_, err := db.Exec("INSERT INTO Threads (title, content, user_id, category_id) VALUES (?, ?, ?, ?)", title, content, userID, categoryID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+

@@ -8,10 +8,10 @@ import (
 )
 
 type User struct {
-	UserID    int
-	Username  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	UserID    int       `json:"user_id"`
+	Username  string    `json:"username"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 func GetUserByID(id int) (*User, error) {
@@ -115,26 +115,26 @@ func UpdateUser(user *User) error {
 }
 
 func CreateUser(user *User) error {
-    db := database.GetDB()
-    _, err := db.Exec("INSERT INTO Users (username, created_at, updated_at) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now())
-    return err
+	db := database.GetDB()
+	_, err := db.Exec("INSERT INTO Users (username, created_at, updated_at) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now())
+	return err
 }
 
 func DeleteUser(id int) error {
-    db := database.GetDB()
-    result, err := db.Exec("DELETE FROM Users WHERE user_id = ?", id)
-    if err != nil {
-        return err
-    }
+	db := database.GetDB()
+	result, err := db.Exec("DELETE FROM Users WHERE user_id = ?", id)
+	if err != nil {
+		return err
+	}
 
-    rowsAffected, err := result.RowsAffected()
-    if err != nil {
-        return err
-    }
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
 
-    if rowsAffected == 0 {
-        return errors.New("no user found with the given id")
-    }
+	if rowsAffected == 0 {
+		return errors.New("no user found with the given id")
+	}
 
-    return nil
+	return nil
 }

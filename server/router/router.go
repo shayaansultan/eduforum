@@ -50,6 +50,10 @@ func SetupRouter() *gin.Engine {
 	r.POST("/categories", controller.CreateCategory)
 	r.PUT("/categories/:id", controller.UpdateCategory)
 	r.DELETE("/categories/:id", controller.DeleteCategory)
+
+	// Thread routes
+	r.GET("/threads/:id", controller.GetThreadByID)
+	
 	
 
 	return r

@@ -44,12 +44,7 @@ func SetupRouter() *gin.Engine {
 	r.POST("/users", controller.CreateUser)
 	r.DELETE("/users/:id", controller.DeleteUser)
 
-	// Thread routes
-    r.GET("/threads/:id", controller.GetThread)
-    r.GET("/threads", controller.GetAllThreads)
-    r.POST("/threads", controller.CreateThread)
-    r.PUT("/threads/:id", controller.UpdateThread)
-    r.DELETE("/threads/:id", controller.DeleteThread)
+	
 
 	return r
 }

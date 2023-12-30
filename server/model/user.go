@@ -7,12 +7,10 @@ import (
 )
 
 type User struct {
-	UserID       int
-	Username     string
-	PasswordHash string
-	Email        string
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
+	UserID    int
+	Username  string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 func GetUserByID(id int) (*User, error) {
@@ -21,7 +19,7 @@ func GetUserByID(id int) (*User, error) {
 
 	user := &User{}
 	var createdAt, updatedAt []byte
-	err := row.Scan(&user.UserID, &user.Username, &user.PasswordHash, &user.Email, &createdAt, &updatedAt)
+	err := row.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -37,4 +35,37 @@ func GetUserByID(id int) (*User, error) {
 	}
 
 	return user, nil
+}
+
+func GetAllUsers() ([]*User, error) {
+	db := database.GetDB()
+	rows, err := db.Query("SELECT * FROM Users")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	users := make([]*User, 0)
+	for rows.Next() {
+		user := &User{}
+		var createdAt, updatedAt []byte
+		if err := rows.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt); err != nil {
+			return nil, err
+		}
+		user.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
+		if err != nil {
+			return nil, err
+		}
+		user.UpdatedAt, err = time.Parse("2006-01-02 15:04:05", string(updatedAt))
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }

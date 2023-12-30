@@ -28,7 +28,4 @@ func PingDB() error {
     return db.Ping()
 }
 
-func RunQuery(query string) (*sql.Rows, error) {
-    return db.Query(query)
-}
 

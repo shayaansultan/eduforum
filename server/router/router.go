@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/shayaansultan/eduforum/server/controller"
 	"github.com/shayaansultan/eduforum/server/database"
 )
 
@@ -34,6 +35,9 @@ func SetupRouter() *gin.Engine {
 			})
 		}
 	})
+
+	// User routes
+	r.GET("/users/:id", controller.GetUser)
 
 	return r
 }

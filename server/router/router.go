@@ -40,6 +40,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/users/:id", controller.GetUser)
 	r.GET("/users", controller.GetAllUsers)
 	r.GET("/users/username/:username", controller.GetUserByUsername)
+	r.PUT("/users/:id", controller.UpdateUser)
 
 	return r
 }

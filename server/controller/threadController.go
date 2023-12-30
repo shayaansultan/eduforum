@@ -54,3 +54,21 @@ func CreateThread(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
+
+func DeleteThread(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil || id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread ID"})
+		return
+	}
+
+	err = model.DeleteThread(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error deleting thread: %s", err.Error())})
+		return
+	}
+
+	res := fmt.Sprintf("Thread %d deleted", id)
+
+	c.JSON(http.StatusOK, gin.H{"message": res})
+}

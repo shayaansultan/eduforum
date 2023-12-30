@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"time"
 
 	"github.com/shayaansultan/eduforum/server/database"
@@ -85,4 +86,21 @@ func CreateThread(title string, content string, userID int, categoryID int) erro
 	return nil
 }
 
+func DeleteThread(id int) error {
+	db := database.GetDB()
+	result, err := db.Exec("DELETE FROM Threads WHERE thread_id = ?", id)
+	if err != nil {
+		return err
+	}
 
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return errors.New("Thread not found")
+	}
+
+	return nil
+}

@@ -120,4 +120,21 @@ func CreateUser(user *User) error {
     return err
 }
 
+func DeleteUser(id int) error {
+    db := database.GetDB()
+    result, err := db.Exec("DELETE FROM Users WHERE user_id = ?", id)
+    if err != nil {
+        return err
+    }
 
+    rowsAffected, err := result.RowsAffected()
+    if err != nil {
+        return err
+    }
+
+    if rowsAffected == 0 {
+        return errors.New("no user found with the given id")
+    }
+
+    return nil
+}

@@ -104,3 +104,18 @@ func CreateUser(c *gin.Context) {
 
     c.JSON(http.StatusOK, user)
 }
+
+func DeleteUser(c *gin.Context) {
+    id, err := strconv.Atoi(c.Param("id"))
+    if err != nil || id <= 0 {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+        return
+    }
+
+    if err := model.DeleteUser(id); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error deleting user: %s", err.Error())})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "User deleted"})
+}

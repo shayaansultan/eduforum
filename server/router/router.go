@@ -44,6 +44,12 @@ func SetupRouter() *gin.Engine {
 	r.POST("/users", controller.CreateUser)
 	r.DELETE("/users/:id", controller.DeleteUser)
 
+	// Category routes
+	r.GET("/categories/:id", controller.GetCategory)
+	r.GET("/categories", controller.GetAllCategories)
+	r.POST("/categories", controller.CreateCategory)
+	r.PUT("/categories/:id", controller.UpdateCategory)
+	r.DELETE("/categories/:id", controller.DeleteCategory)
 	
 
 	return r

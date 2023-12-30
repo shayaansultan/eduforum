@@ -113,3 +113,11 @@ func UpdateUser(user *User) error {
 
 	return nil
 }
+
+func CreateUser(user *User) error {
+    db := database.GetDB()
+    _, err := db.Exec("INSERT INTO Users (username, created_at, updated_at) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now())
+    return err
+}
+
+

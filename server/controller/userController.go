@@ -2,6 +2,7 @@ package controller
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -78,6 +79,26 @@ func UpdateUser(c *gin.Context) {
 
     if err := model.UpdateUser(&user); err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+
+    c.JSON(http.StatusOK, user)
+}
+
+func CreateUser(c *gin.Context) {
+    var user model.User
+    if err := c.ShouldBindJSON(&user); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Error binding user data: %s", err.Error())})
+        return
+    }
+
+    if user.Username == "" {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Username is required"})
+        return
+    }
+
+    if err := model.CreateUser(&user); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error creating user: %s", err.Error())})
         return
     }
 

@@ -121,3 +121,22 @@ func DeleteThread(id int) error {
 
 	return nil
 }
+
+func UpdateThread(id int, title string, content string) error {
+	db := database.GetDB()
+	result, err := db.Exec("UPDATE Threads SET title = ?, content = ? WHERE thread_id = ?", title, content, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return errors.New("Thread not found")
+	}
+
+	return nil
+}

@@ -72,3 +72,30 @@ func DeleteThread(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
+
+func UpdateThread(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil || id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread ID"})
+		return
+	}
+
+	thread := &model.Thread{}
+	err = c.ShouldBindJSON(&thread)
+	if err != nil || thread.Title == "" || thread.Content == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread data"})
+		return
+	}
+
+	thread.ThreadID = id
+
+	err = model.UpdateThread(thread.ThreadID, thread.Title, thread.Content)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error updating thread: %s", err.Error())})
+		return
+	}
+
+	res := fmt.Sprintf("Thread %s updated", thread.Title)
+
+	c.JSON(http.StatusOK, gin.H{"message": res})
+}

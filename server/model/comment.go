@@ -92,3 +92,24 @@ func CreateComment(comment *Comment) error {
 
 	return nil
 }
+
+func UpdateComment(id int, content string) error {
+	db := database.GetDB()
+	_, err := db.Exec("UPDATE Comments SET content = ?, is_edited = 1 WHERE comment_id = ?",
+		content, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func DeleteComment(id int) error {
+	db := database.GetDB()
+	_, err := db.Exec("DELETE FROM Comments WHERE comment_id = ?", id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

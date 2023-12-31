@@ -63,6 +63,8 @@ func SetupRouter() *gin.Engine {
 	// Comment routes
 	r.GET("/comments/:id", controller.GetCommentByID)
 	r.POST("/comments", controller.CreateComment)
+	r.PUT("/comments/:id", controller.UpdateComment)
+	r.DELETE("/comments/:id", controller.DeleteComment)
 
 	return r
 }

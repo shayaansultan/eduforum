@@ -55,8 +55,8 @@ func SetupRouter() *gin.Engine {
 	r.GET("/threads/:id", controller.GetThreadByID)
 	r.GET("/threads", controller.GetAllThreads)
 	r.POST("/threads", controller.CreateThread)
-	r.DELETE("/threads/:id", controller.DeleteThread)
 	r.PUT("/threads/:id", controller.UpdateThread)
+	r.DELETE("/threads/:id", controller.DeleteThread)
 
 	return r
 }

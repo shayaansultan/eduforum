@@ -34,7 +34,7 @@ func GetThreadByID(id int) (*Thread, error) {
 		return nil, err
 	}
 
-	thread.IsEdited = isEdited == 1
+	thread.IsEdited = (isEdited == 1)
 
 	thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
 	if err != nil {
@@ -67,8 +67,7 @@ func GetAllThreads() ([]*Thread, error) {
 			return nil, err
 		}
 
-
-		thread.IsEdited = isEdited == 1
+		thread.IsEdited = (isEdited == 1)
 
 		thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
 		if err != nil {

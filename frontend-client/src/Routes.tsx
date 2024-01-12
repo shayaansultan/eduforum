@@ -1,10 +1,10 @@
 import { Route } from "react-router-dom"
 import Layout from "./components/Layout"
-import ThreadList, {threadsLoader} from "./components/ThreadList"
+import HomePage, {homePageLoader} from "./pages/HomePage"
 
 const routes = [
     <Route path="/" element={<Layout />}>,
-        <Route index element={<ThreadList />} loader={threadsLoader}/>
+        <Route index element={<HomePage />} loader={homePageLoader}/>
     </Route>
 ]
 

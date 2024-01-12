@@ -13,7 +13,7 @@ const Layout = () => {
 
   return (
     <>
-      <Box display="flex" justifyContent={'space-around'} alignItems={'center'} p={3}>
+      <Box display="flex" justifyContent={'space-around'} alignItems={'center'} p={1.5}>
         <NavLink to="/" style={{ textDecoration: 'none' }}>
           <Box display="flex" alignItems={'center'} p={1}>
           {window.outerWidth > 768 && (

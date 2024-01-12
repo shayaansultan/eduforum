@@ -5,10 +5,10 @@ interface CommentListProps {
   comments: Comment[];
 }
 
-const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+const CommentList: React.FC<CommentListProps> = (prop) => {
   return (
     <div className="comment-list">
-      {comments.map(comment => (
+      {prop.comments.map((comment: Comment) => (
         <CommentCard key={comment.comment_id} comment={comment} />
       ))}
     </div>

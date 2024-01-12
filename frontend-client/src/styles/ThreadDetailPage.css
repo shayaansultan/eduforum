@@ -1,0 +1,23 @@
+.thread-detail-card {
+    width: 65%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.comment-title-card {
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .thread-detail-card {
+        width: 90%;
+    }
+
+    .comment-title-card {
+        width: 90%;
+    }
+    
+}

@@ -7,14 +7,14 @@ interface CommentCardProps {
   comment: Comment;
 }
 
-const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
+const CommentCard: React.FC<CommentCardProps> = (prop) => {
   return (
     <Card className="comment-card" size='sm'>
-      <Typography level="body-md">{comment.username}</Typography>
-      <Typography level="body-md">{comment.content}</Typography>
+      <Typography level="title-sm">By: {prop.comment.username}</Typography>
+      <Typography level="body-md">{prop.comment.content}</Typography>
       <Typography level="body-sm">
-        {comment.is_edited ? 'Updated at: ' : 'Created at: '}
-        {new Date(comment.is_edited ? comment.updated_at : comment.created_at).toLocaleString()}
+        {prop.comment.is_edited ? 'Updated at: ' : 'Created at: '}
+        {new Date(prop.comment.is_edited ? prop.comment.updated_at : prop.comment.created_at).toLocaleString()}
       </Typography>
     </Card>
   );

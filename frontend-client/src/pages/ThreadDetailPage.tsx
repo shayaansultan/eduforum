@@ -4,7 +4,7 @@ import CommentList from "../components/CommentList";
 import { useLoaderData } from "react-router-dom";
 import { Card, CardContent, Divider, Typography } from "@mui/joy";
 import { useColorScheme } from '@mui/joy/styles';
-import '../styles/ThreadDetailPage.css'
+import '../styles/ThreadDetailPage.css';
 
 
 interface ThreadDetail {
@@ -29,7 +29,7 @@ const ThreadDetailPage = () => {
   const data = useLoaderData() as ThreadDetail;
 
   return (
-    <div>
+    <>
       <Divider/>
 
       <Card className="thread-detail-card" 
@@ -58,7 +58,7 @@ const ThreadDetailPage = () => {
       </CardContent>
       </Card>
       <CommentList comments={data.comments} />
-    </div>
+    </>
   );
 };
 

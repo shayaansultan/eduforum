@@ -5,6 +5,8 @@ import { Person } from '@mui/icons-material';
 import { useColorScheme } from '@mui/joy/styles';
 import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { MdForum } from "react-icons/md";
+
 
 const Layout = () => {
   const { mode, setMode } = useColorScheme();  
@@ -13,7 +15,10 @@ const Layout = () => {
     <>
       <Box display="flex" justifyContent={'space-around'} alignItems={'center'} p={3}>
         <NavLink to="/" style={{ textDecoration: 'none' }}>
-          <Typography level="h1">Eduforum</Typography>
+          <Box display="flex" alignItems={'center'} p={1}>
+          <MdForum size={40} color={useColorScheme().mode === 'dark' ? 'white' : 'black'}/>
+          <Typography level="h1">&nbsp; Eduforum</Typography>
+          </Box>
         </NavLink>
         <ButtonGroup variant='plain' spacing={2} size='lg'>
           <IconButton

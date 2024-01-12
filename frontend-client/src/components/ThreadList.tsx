@@ -2,13 +2,9 @@ import ThreadCard from './ThreadCard'; // adjust the import path as needed
 import '../interfaces/Thread'
 import { Thread } from '../interfaces/Thread';
 
-
-
-
 interface ThreadListProps {
   threads: Thread[];
 }
-
 
 const ThreadList: React.FC<ThreadListProps> = (prop) => {
 //  console.log(threads)

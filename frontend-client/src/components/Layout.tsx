@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Button, ButtonGroup, Divider} from '@mui/joy';
+import { Box, Typography, IconButton, ButtonGroup, Divider} from '@mui/joy';
 import { Brightness7 } from '@mui/icons-material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Person } from '@mui/icons-material';

@@ -16,8 +16,10 @@ const Layout = () => {
       <Box display="flex" justifyContent={'space-around'} alignItems={'center'} p={3}>
         <NavLink to="/" style={{ textDecoration: 'none' }}>
           <Box display="flex" alignItems={'center'} p={1}>
-          <MdForum size={38} color={useColorScheme().mode === 'dark' ? 'white' : 'black'}/>
-          <Typography level="h1">&nbsp; Eduforum</Typography>
+          {window.outerWidth > 768 && (
+            <MdForum size={34} color={useColorScheme().mode === 'dark' ? 'white' : 'black'} />
+          )}
+          <Typography level="h1">{window.outerWidth > 768 && <>&nbsp; </>}Eduforum</Typography>
           </Box>
         </NavLink>
         <ButtonGroup variant='plain' spacing={2} size='lg'>

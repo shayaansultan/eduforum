@@ -1,12 +1,14 @@
 .thread-card {
     transition: transform 0.3s ease-in-out;
-    max-width: 60%;
+    width: 65%;
     margin: 0 auto;
     margin-bottom: 1rem;
+    margin-top: 1rem;
 
 }
 
 .thread-card:hover {
     transform: scale(1.02);
+    cursor: pointer;
 }
 

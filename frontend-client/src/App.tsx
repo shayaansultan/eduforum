@@ -2,7 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider } from 'r
 import './Routes'
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
-import './App.css';
+import './styles/App.css';
 
 import routes from './Routes';
 

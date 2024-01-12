@@ -1,73 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import ThreadCard from './ThreadCard'; // adjust the import path as needed
-import { useColorScheme } from '@mui/joy/styles';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { IconButton, Stack } from '@mui/joy';
-import './Thread'
+import '../interfaces/Thread'
+import { Thread } from '../interfaces/Thread';
 
-const ModeToggle = () => {
-  const { mode, setMode } = useColorScheme();
-  return (
-    <IconButton
-      variant="outlined"
-      color="neutral"
-      onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
-    >
-        <DarkModeIcon />
-    </IconButton>
-  );
+
+export const threadsLoader = async () => {
+  const response = await fetch('http://localhost:8080/threads');
+  const data = await response.json();
+  return data;
 }
 
 
-
-
 const ThreadList = () => {
- const [threads, setThreads] = useState<Thread[]>([]);
-
-//  useEffect(() => {
-//    fetch('/api/threads') // replace with your actual API endpoint
-//      .then(response => response.json())
-//      .then(data => setThreads(data));
-//  }, []);
-
-
-
- useEffect(() => {
-   setTimeout(() => {
-     setThreads([
-       {
-         id: '1',
-         title: 'First thread',
-         subtitle: 'This is the first thread',
-         commentCount: 10,
-         createdAt: new Date().toISOString(),
-       },
-       {
-         id: '2',
-         title: 'Second thread',
-         subtitle: 'This is the second thread',
-         commentCount: 20,
-         createdAt: new Date().toISOString(),
-       },
-       // add more fake threads as needed
-     ]);
-   }, 1000); // simulate a 1 second delay
- }, []);
-
+ const threads = useLoaderData() as Thread[];
+//  console.log(threads)
  return (
    <div>
-     {threads.map((thread: any) => (
-       <ThreadCard
-          key={thread.id}
-          id={thread.id}
-          title={thread.title}
-          subtitle={thread.subtitle}
-          commentCount={thread.commentCount}
-          createdAt={new Date(thread.createdAt).toLocaleString()}
-       />
-     ))}
-        <ModeToggle />
-   </div>
+      {threads.map((thread: Thread) => (
+        <ThreadCard key={thread.thread_id} thread={thread} />
+      ))}
+    </div>
  );
 };
 

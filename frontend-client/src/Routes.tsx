@@ -1,8 +1,11 @@
 import { Route } from "react-router-dom"
-import ThreadList from "./components/ThreadList"
+import Layout from "./components/Layout"
+import ThreadList, {threadsLoader} from "./components/ThreadList"
 
 const routes = [
-    <Route path="/" element={<ThreadList />} />
+    <Route path="/" element={<Layout />}>,
+        <Route index element={<ThreadList />} loader={threadsLoader}/>
+    </Route>
 ]
 
 export default routes

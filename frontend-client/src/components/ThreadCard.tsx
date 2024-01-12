@@ -10,7 +10,7 @@ interface ThreadCardProps {
 
 const ThreadCard: React.FC<ThreadCardProps> = (prop) => {
   return (
-    <Card className="thread-card" size='sm'>
+    <Card className="thread-card" size='md'>
       <Typography level="title-lg">{prop.thread.title}</Typography>
       <Typography level="body-md">{prop.thread.content}</Typography>
       <Typography level="body-xs">{prop.thread.comment_count} comments</Typography>

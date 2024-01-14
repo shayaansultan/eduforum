@@ -51,10 +51,10 @@ const ThreadDetailPage = () => {
 
       <Divider/>
       <Card className="comment-title-card" 
-        variant="plain" sx={{backgroundColor: useColorScheme().mode === "dark" ? "black" : "white"}}
+        variant="plain" sx={ {backgroundColor: useColorScheme().mode === "dark" ? "black" : "white", paddingTop: 0, paddingBottom: 0} }
       >
       <CardContent>
-        <Typography level="h3">Comments</Typography>
+        <Typography level="h4">Comments</Typography>
       </CardContent>
       </Card>
       <CommentList comments={data.comments} />

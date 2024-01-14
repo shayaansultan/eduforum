@@ -10,9 +10,9 @@ interface ThreadCardProps {
 
 const ThreadCard: React.FC<ThreadCardProps> = (prop) => {
   return (
-    <Card className="thread-card" size='md'>
-      <Typography level="title-lg">{prop.thread.title}</Typography>
-      <Typography level="body-md">{prop.thread.content}</Typography>
+    <Card className="thread-card" size='sm'>
+      <Typography level="title-md">{prop.thread.title}</Typography>
+      <Typography level="body-sm">{prop.thread.content}</Typography>
       <Typography level="body-xs">{prop.thread.comment_count} comments</Typography>
       <Link overlay href={`/threads/${prop.thread.thread_id}`} underline="none">
         {prop.thread.is_edited && <Typography level="body-xs">Updated at: {new Date(prop.thread.updated_at).toLocaleString()}</Typography>}

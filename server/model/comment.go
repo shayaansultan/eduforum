@@ -48,7 +48,7 @@ func GetCommentByID(id int) (*Comment, error) {
 
 func GetCommentsByThreadID(id int) ([]*Comment, error) {
 	db := database.GetDB()
-	rows, err := db.Query("SELECT * FROM CommentsView WHERE thread_id = ?", id)
+	rows, err := db.Query("SELECT * FROM CommentsView WHERE thread_id = ? ORDER BY updated_at DESC", id)
 	if err != nil {
 		return nil, err
 	}

@@ -1,6 +1,8 @@
+import { NewSortFilter } from '../components/ThreadNewSortFilter';
 import ThreadCard from '../components/ThreadCard';
 import { Thread } from '../interfaces/Thread';
 import { useLoaderData } from 'react-router-dom';
+
 
 
 export const homePageLoader = async () => {
@@ -13,6 +15,7 @@ const HomePage = () => {
   const data = useLoaderData() as Thread[];
   return (
    <div>
+      <NewSortFilter />
       {data.map((thread: Thread) => (
         <ThreadCard key={thread.thread_id} thread={thread} />
       ))}

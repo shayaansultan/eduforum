@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Button, Modal, ModalDialog, DialogTitle, Stack, FormControl, FormLabel, Input, Textarea, IconButton, Divider, Typography, DialogContent } from '@mui/joy';
+import { Button, Modal, ModalDialog, DialogTitle, Stack, FormControl, FormLabel, Input, Textarea, IconButton, Divider, Typography, DialogContent, ModalClose } from '@mui/joy';
 import { Add } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { Thread } from "../interfaces/Thread";
 
 
 export const NewThreadButton = () => {
@@ -12,6 +10,7 @@ export const NewThreadButton = () => {
   const [title, setTitle] = useState<String>("");
   const [content, setContent] = useState<String>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [lastThreadId, setLastThreadId] = useState<number>(-1);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,18 +30,18 @@ export const NewThreadButton = () => {
         }),
       });
       setLoading(false);
+      if (!response.ok) {
+        setResponse("Something went wrong");
+        throw new Error(response.statusText);
+      }
       const data = await response.json();
       setResponse(data.message);
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
-
-      setOpenResponseModal(true);
-
-      const navigate = useNavigate();
-      navigate("/");
+      setLastThreadId(data.thread_id);
     } catch (error) {
+      setLoading(false);
       console.error(error);
+    } finally {
+      setOpenResponseModal(true);
     }
   }
 
@@ -57,6 +56,7 @@ export const NewThreadButton = () => {
       }
       <Modal open={openModal} onClose={() => setOpenModal(false)} >
         <ModalDialog>
+          <ModalClose />
           <DialogTitle>Create new thread</DialogTitle>
           <DialogContent>Create a new thread by filling out the form below.</DialogContent>
           <Divider />
@@ -80,23 +80,17 @@ export const NewThreadButton = () => {
           </form>
         </ModalDialog>
       </Modal>
-      <Modal open={openResponseModal} onClose={async () => {
+      <Modal open={openResponseModal} onClose={ () => {
           setResponse("")
           setTitle("")
-          // setOpenResponseModal(false);
-          // setOpenModal(false);
-          const response = await fetch("http://localhost:8080/threads/recent", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          const data = await response.json() as Thread;
-          const thread_id = data.thread_id;
-          window.location.href = `/threads/${thread_id}`;
+          if (lastThreadId !== -1) {
+            window.location.href = `/threads/${lastThreadId}`;
+          }
+          setOpenResponseModal(false);
         }}>
         <ModalDialog>
           <DialogTitle>
+            <ModalClose />
             <Typography level="h4">{response}</Typography>
           </DialogTitle>
         </ModalDialog>

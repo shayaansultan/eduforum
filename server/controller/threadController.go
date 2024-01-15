@@ -50,7 +50,7 @@ func CreateThread(c *gin.Context) {
 		return
 	}
 
-	res := fmt.Sprintf("Thread %s created", thread.Title)
+	res := fmt.Sprintf("Thread '%s' created", thread.Title)
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
@@ -58,13 +58,13 @@ func CreateThread(c *gin.Context) {
 func DeleteThread(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil || id <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid thread ID"})
 		return
 	}
 
 	err = model.DeleteThread(id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error deleting thread: %s", err.Error())})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": fmt.Sprintf("Error deleting thread: %s", err.Error())})
 		return
 	}
 
@@ -98,4 +98,14 @@ func UpdateThread(c *gin.Context) {
 	res := fmt.Sprintf("Thread %s updated", thread.Title)
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
+}
+
+func GetMostRecentlyCreatedThread(c *gin.Context) {
+	thread, err := model.GetMostRecentlyCreatedThread()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error getting thread: %s", err.Error())})
+		return
+	}
+
+	c.JSON(http.StatusOK, thread)
 }

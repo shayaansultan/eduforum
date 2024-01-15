@@ -57,6 +57,7 @@ func SetupRouter() *gin.Engine {
 	r.POST("/threads", controller.CreateThread)
 	r.PUT("/threads/:id", controller.UpdateThread)
 	r.DELETE("/threads/:id", controller.DeleteThread)
+	r.GET("/threads/recent", controller.GetMostRecentlyCreatedThread)
 	// Get all threads in a category
 	r.GET("/threads/:id/comments", controller.GetCommentsByThreadID)
 

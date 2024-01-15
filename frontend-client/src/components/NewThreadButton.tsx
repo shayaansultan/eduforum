@@ -89,10 +89,10 @@ export const NewThreadButton = () => {
           setOpenResponseModal(false);
         }}>
         <ModalDialog>
-          <DialogTitle>
+          <DialogContent>
             <ModalClose />
             <Typography level="h4">{response}</Typography>
-          </DialogTitle>
+          </DialogContent>
         </ModalDialog>
       </Modal>
     </div>

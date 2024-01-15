@@ -2,9 +2,10 @@ import { Comment } from "../interfaces/Comment";
 import { Thread } from "../interfaces/Thread";
 import CommentList from "../components/CommentList";
 import { useLoaderData } from "react-router-dom";
-import { Card, CardContent, Divider, Typography } from "@mui/joy";
+import { Button, Card, CardContent, Divider, Stack, Typography } from "@mui/joy";
 import { useColorScheme } from '@mui/joy/styles';
 import '../styles/ThreadDetailPage.css';
+import { Add } from "@mui/icons-material";
 
 
 interface ThreadDetail {
@@ -30,8 +31,6 @@ const ThreadDetailPage = () => {
 
   return (
     <>
-      <Divider/>
-
       <Card className="thread-detail-card" 
         variant="plain" sx={{backgroundColor: useColorScheme().mode === "dark" ? "black" : "white"}}
       >
@@ -53,9 +52,14 @@ const ThreadDetailPage = () => {
       <Card className="comment-title-card" 
         variant="plain" sx={ {backgroundColor: useColorScheme().mode === "dark" ? "black" : "white", paddingTop: 0, paddingBottom: 0} }
       >
-      <CardContent>
-        <Typography level="h4">Comments</Typography>
-      </CardContent>
+        <CardContent>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography level="h4">Comments</Typography>
+            <Button variant="solid" color="primary" startDecorator={<Add />}>
+              Add new comment
+            </Button>
+          </Stack>
+        </CardContent>
       </Card>
       <CommentList comments={data.comments} />
     </>

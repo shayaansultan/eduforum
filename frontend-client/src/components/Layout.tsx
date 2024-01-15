@@ -38,8 +38,8 @@ const Layout = () => {
           </NavLink>
         </ButtonGroup>
       </Box>
-
-       <Outlet />
+      <Divider />
+      <Outlet />
     </>
  );
 };

@@ -1,7 +1,8 @@
-import { NewSortFilter } from '../components/ThreadNewSortFilter';
+import { ThreadsHeader } from '../components/ThreadsHeader';
 import ThreadCard from '../components/ThreadCard';
 import { Thread } from '../interfaces/Thread';
 import { useLoaderData } from 'react-router-dom';
+import { Divider } from '@mui/joy';
 
 
 
@@ -15,7 +16,7 @@ const HomePage = () => {
   const data = useLoaderData() as Thread[];
   return (
    <div>
-      <NewSortFilter />
+      <ThreadsHeader />
       {data.map((thread: Thread) => (
         <ThreadCard key={thread.thread_id} thread={thread} />
       ))}

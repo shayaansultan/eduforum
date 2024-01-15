@@ -1,6 +1,6 @@
-import ThreadCard from './ThreadCard'; // adjust the import path as needed
-import '../interfaces/Thread'
+import ThreadCard from './ThreadCard';
 import { Thread } from '../interfaces/Thread';
+import { Box, Typography } from '@mui/joy';
 
 interface ThreadListProps {
   threads: Thread[];
@@ -13,6 +13,11 @@ const ThreadList: React.FC<ThreadListProps> = (prop) => {
       {prop.threads.map((thread: Thread) => (
         <ThreadCard key={thread.thread_id} thread={thread} />
       ))}
+      {prop.threads.length === 0 && 
+        <Box display="flex" justifyContent={'space-evenly'} alignItems={'center'} p={1.5}>
+          <Typography level="title-md">No comments yet</Typography>
+        </Box>
+      }
     </div>
  );
 };

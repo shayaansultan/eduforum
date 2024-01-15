@@ -2,7 +2,7 @@ import { ThreadsHeader } from '../components/ThreadsHeader';
 import ThreadCard from '../components/ThreadCard';
 import { Thread } from '../interfaces/Thread';
 import { useLoaderData } from 'react-router-dom';
-import { Divider } from '@mui/joy';
+
 
 
 

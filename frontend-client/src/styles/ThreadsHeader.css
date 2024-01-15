@@ -1,0 +1,11 @@
+.threads-header-card {
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .threads-header-card {
+        width: 95%;
+    }
+}

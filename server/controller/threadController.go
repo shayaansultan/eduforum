@@ -44,7 +44,7 @@ func CreateThread(c *gin.Context) {
 		return
 	}
 
-	err = model.CreateThread(thread.Title, thread.Content, thread.UserID, thread.CategoryID)
+	id, err := model.CreateThread(thread.Title, thread.Content, thread.UserID, thread.CategoryID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error creating thread: %s", err.Error())})
 		return
@@ -52,7 +52,7 @@ func CreateThread(c *gin.Context) {
 
 	res := fmt.Sprintf("Thread '%s' created", thread.Title)
 
-	c.JSON(http.StatusOK, gin.H{"message": res})
+	c.JSON(http.StatusOK, gin.H{"message": res, "thread_id": id})
 }
 
 func DeleteThread(c *gin.Context) {
@@ -100,12 +100,4 @@ func UpdateThread(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
 
-func GetMostRecentlyCreatedThread(c *gin.Context) {
-	thread, err := model.GetMostRecentlyCreatedThread()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error getting thread: %s", err.Error())})
-		return
-	}
 
-	c.JSON(http.StatusOK, thread)
-}

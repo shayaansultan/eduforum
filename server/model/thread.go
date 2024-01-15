@@ -85,14 +85,20 @@ func GetAllThreads() ([]*Thread, error) {
 	return threads, nil
 }
 
-func CreateThread(title string, content string, userID int, categoryID int) error {
+func CreateThread(title string, content string, userID int, categoryID int) (int, error) {
 	db := database.GetDB()
 	_, err := db.Exec("INSERT INTO Threads (title, content, user_id, category_id) VALUES (?, ?, ?, ?)", title, content, userID, categoryID)
 	if err != nil {
-		return err
+		return -1, err
+	}
+	row := db.QueryRow("SELECT LAST_INSERT_ID()")
+	var id int
+	err = row.Scan(&id)
+	if err != nil {
+		return -1, err
 	}
 
-	return nil
+	return id, nil
 }
 
 func DeleteThread(id int) error {
@@ -131,30 +137,4 @@ func UpdateThread(id int, title string, content string) error {
 	}
 
 	return nil
-}
-
-func GetMostRecentlyCreatedThread() (*Thread, error) {
-	db := database.GetDB()
-	row := db.QueryRow("SELECT * FROM ThreadsView ORDER BY created_at DESC LIMIT 1")
-
-	thread := &Thread{}
-	var createdAt, updatedAt []byte
-	var isEdited int
-	err := row.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username,
-		&thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt, &isEdited)
-	if err != nil {
-		return nil, err
-	}
-
-	thread.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
-	if err != nil {
-		return nil, err
-	}
-
-	thread.UpdatedAt, err = time.Parse("2006-01-02 15:04:05", string(updatedAt))
-	if err != nil {
-		return nil, err
-	}
-
-	return thread, nil
 }

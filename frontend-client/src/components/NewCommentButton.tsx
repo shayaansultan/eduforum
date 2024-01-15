@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material"
-import { Button, DialogContent, DialogTitle, Divider, FormControl, FormLabel, Modal, ModalClose, ModalDialog, Stack, TextField, Textarea } from "@mui/joy"
+import { Button, DialogContent, DialogTitle, Divider, FormControl, FormLabel, Modal, ModalClose, ModalDialog, Stack, Textarea } from "@mui/joy"
 import { useState } from "react";
 
 const NewCommentButton = () => {
@@ -30,7 +30,6 @@ const NewCommentButton = () => {
         setResponse("Something went wrong");
         throw new Error(response.statusText);
       }
-      const data = await response.json();
       setResponse("Comment created successfully");
     } catch (error) {
       setLoading(false);

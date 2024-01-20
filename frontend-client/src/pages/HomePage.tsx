@@ -3,9 +3,7 @@ import { Thread } from '../interfaces/Thread';
 import { useLoaderData } from 'react-router-dom';
 import ThreadList from '../components/ThreadList';
 import { getThreadsURL } from '../apiService';
-
-
-
+import { useSearchParams } from 'react-router-dom';
 
 export const homePageLoader = async () => {
   const URL = getThreadsURL();
@@ -16,10 +14,29 @@ export const homePageLoader = async () => {
 
 const HomePage = () => {
   const data = useLoaderData() as Thread[];
+  const [searchParams, _] = useSearchParams();
+
+  const sortType = searchParams.get("sort");
+  const asc = searchParams.get("asc");
+
+  const sortedData = data.sort((a: Thread, b: Thread) => {
+    if (sortType === "comments") {
+      return b.comment_count - a.comment_count;
+    } else if (sortType === "date") {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    } else {
+      return 0;
+    }
+  });
+
+  if (asc === "true") {
+    sortedData.reverse();
+  }
+
   return (
    <div>
       <ThreadsHeader />
-      <ThreadList threads={data} />
+      <ThreadList threads={sortedData} />
     </div>
  );
 };

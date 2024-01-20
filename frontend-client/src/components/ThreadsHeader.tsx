@@ -1,4 +1,4 @@
-import { Stack, Typography, Card, useColorScheme, ButtonGroup } from "@mui/joy";
+import { Stack, Typography, Card, useColorScheme } from "@mui/joy";
 import NewThreadButton from "./NewThreadButton";
 import SortThreadButton from "./SortThreadButton";
 import '../styles/ThreadsHeader.css';

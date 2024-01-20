@@ -19,25 +19,38 @@ const SortThreadButton = () => {
     }
   }, [sortType])
 
-
   return (
     <Dropdown>
       <MenuButton variant="outlined" color="neutral" startDecorator={<Sort />}>
-        Sort by: {selectedSort}
+        Sort By {
+          selectedSort === "date" ? "Date" : "Comments"
+        }
       </MenuButton>
       <Menu>
         <MenuItem onClick={() => {
+          let params = Object.fromEntries(searchParams.entries());
+          params.sort = "date";
           setSelectedSort("date")
-          setSearchParams({sort: "date"})
+          setSearchParams(params)
           }} selected={selectedSort === "date"}>
           Date
         </MenuItem>
         <MenuItem onClick={() => {
+          let params = Object.fromEntries(searchParams.entries());
+          params.sort = "comments";
           setSelectedSort("comments")
-          setSearchParams({sort: "comments"})
+          setSearchParams(params)
           }} selected={selectedSort === "comments"}>
             Comments
-          </MenuItem>
+        </MenuItem>
+        <MenuItem onClick={() => {
+          let params = Object.fromEntries(searchParams.entries());
+          params.asc = (!asc).toString();
+          setAsc(!asc)
+          setSearchParams(params)
+          }} selected={asc}>
+            Order: {asc ? "Ascending" : "Descending"}
+        </MenuItem>
       </Menu>
     </Dropdown>
   );

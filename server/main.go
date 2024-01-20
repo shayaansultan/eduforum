@@ -12,7 +12,7 @@ import (
 func main() {
 	// Initialize the database
 	// Load environment variables from .env file
-	if err := godotenv.Load("../.env"); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 		panic("Failed to load environment variables: " + err.Error())
 	}
 

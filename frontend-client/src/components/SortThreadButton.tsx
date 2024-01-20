@@ -22,8 +22,8 @@ const SortThreadButton = () => {
   return (
     <Dropdown>
       <MenuButton variant="outlined" color="neutral" startDecorator={<Sort />}>
-        Sort By {
-          selectedSort === "date" ? "Date" : "Comments"
+        Sort By{
+          selectedSort === "date" ? ": Date" : ": Comments"
         }
       </MenuButton>
       <Menu>

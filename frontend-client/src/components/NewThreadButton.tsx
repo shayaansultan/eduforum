@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Modal, ModalDialog, DialogTitle, Stack, FormControl, FormLabel, Input, Textarea, IconButton, Divider, Typography, DialogContent, ModalClose } from '@mui/joy';
 import { Add } from "@mui/icons-material";
+import { getThreadsURL } from "../apiService";
 
 
 export const NewThreadButton = () => {
@@ -17,7 +18,8 @@ export const NewThreadButton = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/threads", {
+      const threadsURL = getThreadsURL();
+      const response = await fetch(threadsURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

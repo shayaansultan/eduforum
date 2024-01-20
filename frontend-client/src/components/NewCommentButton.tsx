@@ -1,6 +1,7 @@
 import { Add } from "@mui/icons-material"
 import { Button, DialogContent, DialogTitle, Divider, FormControl, FormLabel, Modal, ModalClose, ModalDialog, Stack, Textarea } from "@mui/joy"
 import { useState } from "react";
+import { postCommentURL } from "../apiService";
 
 const NewCommentButton = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -14,7 +15,8 @@ const NewCommentButton = () => {
     setLoading(true);
 
     try { 
-      const response = await fetch("http://localhost:8080/comments", {
+      const commentsURL = postCommentURL();
+      const response = await fetch(commentsURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

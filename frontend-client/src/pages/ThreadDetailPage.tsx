@@ -6,6 +6,7 @@ import { Card, CardContent, Divider, Stack, Typography } from "@mui/joy";
 import { useColorScheme } from '@mui/joy/styles';
 import '../styles/ThreadDetailPage.css';
 import NewCommentButton from "../components/NewCommentButton";
+import { getCommentsForThreadURL, getThreadURL } from "../apiService";
 
 
 interface ThreadDetail {
@@ -15,11 +16,13 @@ interface ThreadDetail {
 
 export const threadDetailPageLoader = async () => {
   const thread_id = window.location.pathname.split('/')[2];
+  const commentsURL = getCommentsForThreadURL(thread_id);
+  const threadURL = getThreadURL(thread_id);
 
-  const commentsResponse = await fetch(`http://localhost:8080/threads/${thread_id}/comments`);
+  const commentsResponse = await fetch(commentsURL);
   const commentsData = await commentsResponse.json();
 
-  const threadResponse = await fetch(`http://localhost:8080/threads/${thread_id}`);
+  const threadResponse = await fetch(threadURL);
   const threadData = await threadResponse.json();
 
   return { thread: threadData, comments: commentsData } as ThreadDetail;

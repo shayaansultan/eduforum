@@ -16,8 +16,12 @@ const HomePage = () => {
   const data = useLoaderData() as Thread[];
   const [searchParams, _] = useSearchParams();
 
-  const sortType = searchParams.get("sort");
+  let sortType = searchParams.get("sort");
   const asc = searchParams.get("asc");
+
+  if (sortType == null) {
+    sortType = "date";
+  }
 
   const sortedData = data.sort((a: Thread, b: Thread) => {
     if (sortType === "comments") {

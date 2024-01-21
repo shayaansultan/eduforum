@@ -1,11 +1,12 @@
 // Create a Login Page using Joy-UI without adding login functionality yet
-import { Button, Card, DialogTitle, FormControl, FormLabel, Input, Link, Stack, Typography } from '@mui/joy'
-import {EmailOutlined, Key} from '@mui/icons-material'
+import { Button, Card, DialogTitle, FormControl, FormHelperText, FormLabel, Input, Link, Stack, Typography } from '@mui/joy'
+import { PersonOutline, EmailOutlined, Key } from '@mui/icons-material'
 import { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
-const LoginPage = () => {
+const RegisterPage = () => {
+  const [Username, setUsername] = useState<string>("")
   const [Email, setEmail] = useState<string>("")
   const [Password, setPassword] = useState<string>("")
   const [signedIn, setSignedIn] = useState<boolean>(false)
@@ -57,11 +58,11 @@ const LoginPage = () => {
   }
 
   return (
-    <div style={{marginTop:'100px', display:"flex", justifyContent:"center", alignItems:"center"}}>
+    <div style={{marginTop:'80px', display:"flex", justifyContent:"center", alignItems:"center"}}>
       {!(signedIn) &&
       <Card sx={{width:"450px", margin:"auto", maxWidth:"90%", alignSelf:'center', justifyContent:'center'}}>
         <DialogTitle sx={{justifyContent:'center'}}>
-          <Typography level='h4'>Login</Typography>
+          <Typography level='h4'>Register</Typography>
         </DialogTitle>
         <form
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
@@ -70,6 +71,13 @@ const LoginPage = () => {
           }}
         >
           <Stack spacing={2}>
+            <FormControl>
+              <FormLabel>Username</FormLabel>
+              <Input type='text' startDecorator={<PersonOutline />} placeholder='Enter Username' required 
+                value={Username} onChange={(e) => setUsername(e.target.value)}
+              />
+              <FormHelperText>Username must be unique and will be public</FormHelperText>
+            </FormControl>
             <FormControl>
               <FormLabel>Email</FormLabel>
               <Input type='email' startDecorator={<EmailOutlined/>} placeholder='Enter Email' required 
@@ -82,11 +90,11 @@ const LoginPage = () => {
                 value={Password} onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
-            <Button type='submit' variant="solid" color="primary">Login</Button>
+            <Button type='submit' variant="solid" color="primary">Register</Button>
           </Stack>
         </form>
         {/* <Link color="primary" sx={{justifyContent:'center'}}>Forgot Password?</Link> */}
-        <Link href="/register" color="primary" sx={{justifyContent:'center'}}>Don't have an account? Sign up</Link>
+        <Link href="/login" color="primary" sx={{justifyContent:'center'}}>Already have an account? Log in</Link>
     </Card>
     }
     {signedIn && 
@@ -96,4 +104,4 @@ const LoginPage = () => {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

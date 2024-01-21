@@ -1,44 +1,14 @@
-import { Box, Typography, IconButton, ButtonGroup, Divider, Button, Dropdown, MenuButton, Menu, MenuItem} from '@mui/joy';
-import { Brightness7 } from '@mui/icons-material';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { Person } from '@mui/icons-material';
+import { Box, Typography, IconButton, ButtonGroup, Divider} from '@mui/joy';
+import { Brightness7, DarkMode } from '@mui/icons-material';
 import { useColorScheme } from '@mui/joy/styles';
-import { Outlet } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import { MdForum } from "react-icons/md";
-import { auth } from '../firebase';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import UserProfileButton from './UserProfileButton';
 
 
 
 const Layout = () => {
   const { mode, setMode } = useColorScheme();
-  const [signedIn, setSignedIn] = useState<boolean>(false)
-
-  const user = auth.currentUser;
-
-  useEffect(() => {
-    if (user) {
-      // User is signed in
-      setSignedIn(true)
-    } else {
-      // User is signed out
-      setSignedIn(false)
-    }
-  }
-  , [user])
-
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in
-      setSignedIn(true)
-    } else {
-      // User is signed out
-      setSignedIn(false)
-    }
-  });
 
   return (
     <>
@@ -57,28 +27,10 @@ const Layout = () => {
             onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
             size='lg'
           >
-            {useColorScheme().mode === 'dark' ? <Brightness7 /> : <DarkModeIcon />}
+            {useColorScheme().mode === 'dark' ? <Brightness7 /> : <DarkMode />}
           </IconButton>
           <Divider orientation="vertical"  />
-          <NavLink to="/login" style={{ textDecoration: 'none' }}>
-            <IconButton>
-              <Person />
-            </IconButton>
-          </NavLink>
-          <Divider orientation="vertical"  />
-          {signedIn && (
-            <Button onClick={() => {
-              signOut(auth).then(() => {
-                // Sign-out successful.
-                alert("Sign-out successful.")
-              }).catch((error) => {
-                // An error happened.
-                alert(`An error happened: ${error.code}`)
-              });
-              }} variant="solid" color="primary">
-              Logout
-            </Button>
-          )}
+          <UserProfileButton />
         </ButtonGroup>
       </Box>
       <Divider />

@@ -10,18 +10,12 @@ const LoginPage = () => {
   const [Password, setPassword] = useState<string>("")
   const [signedIn, setSignedIn] = useState<boolean>(false)
 
-  console.log("rendering login page")
-
   const user = auth.currentUser;
 
   useEffect(() => {
     if (user) {
-      // User is signed in
-      console.log("user is signed in inside useEffect")
       setSignedIn(true)
     } else {
-      // User is signed out
-      console.log("user is signed out inside useEffect")
       setSignedIn(false)
     }
   }
@@ -30,12 +24,8 @@ const LoginPage = () => {
 
   onAuthStateChanged(auth, (user) => {
     if (user && !signedIn) {
-      // User is signed in
-      console.log("user is signed in inside onAuthStateChanged")
       setSignedIn(true)
     } else if (!user && signedIn){
-      // User is signed out
-      console.log("user is signed out inside onAuthStateChanged")
       setSignedIn(false)
     }
   });
@@ -47,7 +37,6 @@ const LoginPage = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         alert("Login Successful" + user?.email)
-        console.log(user)
         window.location.href = "/"
       })
       .catch((error) => {

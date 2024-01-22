@@ -13,6 +13,7 @@ type Comment struct {
 	ThreadTitle string    `json:"thread_title"`
 	UserID      int       `json:"user_id"`
 	Username    string    `json:"username"`
+	UserEmail   string    `json:"user_email"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	IsEdited    bool      `json:"is_edited"`
@@ -26,7 +27,7 @@ func GetCommentByID(id int) (*Comment, error) {
 	var createdAt, updatedAt []byte
 	var isEdited int
 	err := row.Scan(&comment.CommentID, &comment.Content, &comment.ThreadID, &comment.ThreadTitle,
-		&comment.UserID, &comment.Username, &createdAt, &updatedAt, &isEdited)
+		&comment.UserID, &comment.Username, &comment.UserEmail, &createdAt, &updatedAt, &isEdited)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +60,7 @@ func GetCommentsByThreadID(id int) ([]*Comment, error) {
 		var createdAt, updatedAt []byte
 		var isEdited int
 		err := rows.Scan(&comment.CommentID, &comment.Content, &comment.ThreadID, &comment.ThreadTitle,
-			&comment.UserID, &comment.Username, &createdAt, &updatedAt, &isEdited)
+			&comment.UserID, &comment.Username, &comment.UserEmail, &createdAt, &updatedAt, &isEdited)
 		if err != nil {
 			return nil, err
 		}

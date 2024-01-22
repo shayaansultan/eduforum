@@ -12,6 +12,7 @@ type User struct {
 	Username  string    `json:"username"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Email     string    `json:"email"`
 }
 
 func GetUserByID(id int) (*User, error) {
@@ -20,7 +21,7 @@ func GetUserByID(id int) (*User, error) {
 
 	user := &User{}
 	var createdAt, updatedAt []byte
-	err := row.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt)
+	err := row.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt, &user.Email)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +45,7 @@ func GetUserByUsername(username string) (*User, error) {
 
 	user := &User{}
 	var createdAt, updatedAt []byte
-	err := row.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt)
+	err := row.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt, &user.Email)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +75,7 @@ func GetAllUsers() ([]*User, error) {
 	for rows.Next() {
 		user := &User{}
 		var createdAt, updatedAt []byte
-		if err := rows.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt); err != nil {
+		if err := rows.Scan(&user.UserID, &user.Username, &createdAt, &updatedAt, &user.Email); err != nil {
 			return nil, err
 		}
 		user.CreatedAt, err = time.Parse("2006-01-02 15:04:05", string(createdAt))
@@ -116,7 +117,7 @@ func UpdateUser(user *User) error {
 
 func CreateUser(user *User) error {
 	db := database.GetDB()
-	_, err := db.Exec("INSERT INTO Users (username, created_at, updated_at) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now())
+	_, err := db.Exec("INSERT INTO Users (username, created_at, updated_at, email) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now(), user.Email)
 	return err
 }
 

@@ -34,26 +34,44 @@ const ThreadDetailPage = () => {
 
   return (
     <>
-      <Card className="thread-detail-card" 
-        variant="plain" sx={{backgroundColor: useColorScheme().mode === "dark" ? "black" : "white"}}
+      <Card className="thread-detail-card"
+        variant="plain" sx={{ backgroundColor: useColorScheme().mode === "dark" ? "black" : "white" }}
       >
         <CardContent>
-          <Typography level="h2">
+          <Typography level="h2"
+            sx={{
+              textWrap: 'wrap',
+              wordWrap: 'break-word',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
             Title: {data.thread.title}
           </Typography>
           <Typography level="body-sm">
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>
           <br />
-          <Typography level="body-lg">
+          <Typography level="body-lg"
+            sx={{
+              textWrap: 'wrap',
+              wordWrap: 'break-word',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
             {data.thread.content}
           </Typography>
         </CardContent>
       </Card>
 
-      <Divider/>
-      <Card className="comment-title-card" 
-        variant="plain" sx={ {backgroundColor: useColorScheme().mode === "dark" ? "black" : "white", paddingTop: 0, paddingBottom: 0} }
+      <Divider />
+      <Card className="comment-title-card"
+        variant="plain" sx={{ backgroundColor: useColorScheme().mode === "dark" ? "black" : "white", paddingTop: 0, paddingBottom: 0 }}
       >
         <CardContent>
           <Stack direction="row" justifyContent="space-between" alignItems="center">

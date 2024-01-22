@@ -3,7 +3,8 @@ export interface Comment {
   content: string;
   thread_id: number;
   thread_title: string;
-  user_id: number;
+  user_id: string;
+  user_email: string;
   username: string;
   created_at: string;
   updated_at: string;

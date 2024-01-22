@@ -13,6 +13,7 @@ type Thread struct {
 	Content      string    `json:"content"`
 	UserID       int       `json:"user_id"`
 	Username     string    `json:"username"`
+	UserEmail    string    `json:"user_email"`
 	CategoryID   int       `json:"category_id"`
 	CategoryName string    `json:"category_name"`
 	CommentCount int       `json:"comment_count"`
@@ -28,7 +29,7 @@ func GetThreadByID(id int) (*Thread, error) {
 	thread := &Thread{}
 	var createdAt, updatedAt []byte
 	var isEdited int
-	err := row.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username,
+	err := row.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username, &thread.UserEmail,
 		&thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt, &isEdited)
 	if err != nil {
 		return nil, err
@@ -61,7 +62,7 @@ func GetAllThreads() ([]*Thread, error) {
 		thread := &Thread{}
 		var createdAt, updatedAt []byte
 		var isEdited int
-		err := rows.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username,
+		err := rows.Scan(&thread.ThreadID, &thread.Title, &thread.Content, &thread.UserID, &thread.Username, &thread.UserEmail,
 			&thread.CategoryID, &thread.CategoryName, &thread.CommentCount, &createdAt, &updatedAt, &isEdited)
 		if err != nil {
 			return nil, err

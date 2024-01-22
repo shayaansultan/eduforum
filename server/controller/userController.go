@@ -97,6 +97,11 @@ func CreateUser(c *gin.Context) {
         return
     }
 
+    if user.Email == "" {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Email is required"})
+        return
+    }
+
     if err := model.CreateUser(&user); err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error creating user: %s", err.Error())})
         return

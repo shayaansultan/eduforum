@@ -39,7 +39,7 @@ func GetAllThreads(c *gin.Context) {
 func CreateThread(c *gin.Context) {
 	thread := &model.Thread{}
 	err := c.ShouldBindJSON(&thread)
-	if err != nil || thread.Title == "" || thread.Content == "" || thread.UserID <= 0 || thread.CategoryID <= 0 {
+	if err != nil || thread.Title == "" || thread.Content == "" || thread.CategoryID <= 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread data"})
 		return
 	}
@@ -99,5 +99,3 @@ func UpdateThread(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
-
-

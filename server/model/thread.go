@@ -11,7 +11,7 @@ type Thread struct {
 	ThreadID     int       `json:"thread_id"`
 	Title        string    `json:"title"`
 	Content      string    `json:"content"`
-	UserID       int       `json:"user_id"`
+	UserID       string    `json:"user_id"`
 	Username     string    `json:"username"`
 	UserEmail    string    `json:"user_email"`
 	CategoryID   int       `json:"category_id"`
@@ -86,7 +86,7 @@ func GetAllThreads() ([]*Thread, error) {
 	return threads, nil
 }
 
-func CreateThread(title string, content string, userID int, categoryID int) (int, error) {
+func CreateThread(title string, content string, userID string, categoryID int) (int, error) {
 	db := database.GetDB()
 	_, err := db.Exec("INSERT INTO Threads (title, content, user_id, category_id) VALUES (?, ?, ?, ?)", title, content, userID, categoryID)
 	if err != nil {

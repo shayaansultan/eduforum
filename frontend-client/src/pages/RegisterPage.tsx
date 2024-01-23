@@ -2,7 +2,7 @@
 import { Button, Card, DialogTitle, FormControl, FormHelperText, FormLabel, Input, Link, Stack, Typography } from '@mui/joy'
 import { PersonOutline, EmailOutlined, Key } from '@mui/icons-material'
 import { useEffect, useState } from 'react';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase';
 import { checkUsernameExistsURL, createUserURL } from '../apiService';
 
@@ -54,9 +54,9 @@ const RegisterPage = () => {
     // Then make a POST request to createUserURL, with the user_id, username, and email
 
     createUserWithEmailAndPassword(auth, Email, Password)
-      .then((userCredential) => {
+      .then((_) => {
         // Signed up 
-        const user = userCredential.user;
+        // const user = userCredential.user;
         // console.log("user inside: " + user)
         // ...
       })

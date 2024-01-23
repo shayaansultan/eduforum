@@ -1,4 +1,4 @@
-import { Login, Logout, Person, Person2 } from "@mui/icons-material";
+import { Login, Logout, Person, Person2, PersonAddAlt } from "@mui/icons-material";
 import { Dropdown, IconButton, ListItemDecorator, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { auth } from '../firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
@@ -36,14 +36,23 @@ const UserProfileButton = () => {
         <Person />
       </MenuButton>
       <Menu>
-        {!(signedIn) && 
+        {!(signedIn) &&
           <MenuItem onClick={() => window.location.href = "/login"}>
-          <ListItemDecorator>
-            <Login />
-          </ListItemDecorator>
+            <ListItemDecorator>
+              <Login />
+            </ListItemDecorator>
             Login
           </MenuItem>
         }
+        {!(signedIn) &&
+          <MenuItem onClick={() => window.location.href = "/register"}>
+            <ListItemDecorator>
+              <PersonAddAlt />
+            </ListItemDecorator>
+            Register
+          </MenuItem>
+        }
+
         {(signedIn) &&
           <MenuItem onClick={() => window.location.href = "/profile"}>
             <ListItemDecorator>
@@ -52,7 +61,7 @@ const UserProfileButton = () => {
             Profile
           </MenuItem>
         }
-        {signedIn && 
+        {signedIn &&
           <MenuItem onClick={() => signOut(auth).then(() => {
             // Sign-out successful.
             alert("Logout Successful")

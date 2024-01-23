@@ -58,7 +58,7 @@ func SetupRouter() *gin.Engine {
 	r.POST("/threads", controller.CreateThread)
 	r.PUT("/threads/:id", controller.UpdateThread)
 	r.DELETE("/threads/:id", controller.DeleteThread)
-	// Get all threads in a category
+	r.GET("/threads/:id/comments", controller.GetCommentsByThreadID)
 	r.GET("/checkusername/:username", controller.CheckUsernameExists)
 
 	// Comment routes

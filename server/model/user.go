@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	UserID    int       `json:"user_id"`
+	UserID    string    `json:"user_id"`
 	Username  string    `json:"username"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
@@ -117,7 +117,7 @@ func UpdateUser(user *User) error {
 
 func CreateUser(user *User) error {
 	db := database.GetDB()
-	_, err := db.Exec("INSERT INTO Users (username, created_at, updated_at, email) VALUES (?, ?, ?)", user.Username, time.Now(), time.Now(), user.Email)
+	_, err := db.Exec("INSERT INTO Users (user_id, username, created_at, updated_at, email) VALUES (?, ?, ?, ?, ?)", user.UserID, user.Username, time.Now(), time.Now(), user.Email)
 	return err
 }
 

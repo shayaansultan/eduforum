@@ -67,7 +67,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	if user.UserID == 0 {
+	if user.UserID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is required"})
 		return
 	}

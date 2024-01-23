@@ -43,6 +43,7 @@ func SetupRouter() *gin.Engine {
 	r.PUT("/users/:id", controller.UpdateUser)
 	r.POST("/users", controller.CreateUser)
 	r.DELETE("/users/:id", controller.DeleteUser)
+	r.GET("/users/:id/check", controller.CheckUsernameExists)
 
 	// Category routes
 	r.GET("/categories/:id", controller.GetCategory)
@@ -58,7 +59,7 @@ func SetupRouter() *gin.Engine {
 	r.PUT("/threads/:id", controller.UpdateThread)
 	r.DELETE("/threads/:id", controller.DeleteThread)
 	// Get all threads in a category
-	r.GET("/threads/:id/comments", controller.GetCommentsByThreadID)
+	r.GET("/checkusername/:username", controller.CheckUsernameExists)
 
 	// Comment routes
 	r.GET("/comments/:id", controller.GetCommentByID)

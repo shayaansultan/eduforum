@@ -139,3 +139,14 @@ func DeleteUser(id int) error {
 
 	return nil
 }
+
+func IsUsernameTaken(username string) (bool, error) {
+	db := database.GetDB()
+	var exists bool
+	query := `SELECT EXISTS(SELECT 1 FROM Users WHERE username=?)`
+	err := db.QueryRow(query, username).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
+}

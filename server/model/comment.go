@@ -11,7 +11,7 @@ type Comment struct {
 	Content     string    `json:"content"`
 	ThreadID    int       `json:"thread_id"`
 	ThreadTitle string    `json:"thread_title"`
-	UserID      int       `json:"user_id"`
+	UserID      string    `json:"user_id"`
 	Username    string    `json:"username"`
 	UserEmail   string    `json:"user_email"`
 	CreatedAt   time.Time `json:"created_at"`

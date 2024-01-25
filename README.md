@@ -1,7 +1,5 @@
 # Eduforum
 
-`https://eduforum-95bce.web.app/`
-
 Eduforum is a web forum designed for university students to share thoughts, resources, and engage in discussions. It provides a platform for students to connect with each other and foster a collaborative learning environment.
 
 You can include the deployed URL for your app in your `README.md` file using markdown. Here's an example:

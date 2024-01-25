@@ -15,7 +15,7 @@ const ThreadList: React.FC<ThreadListProps> = (prop) => {
       ))}
       {prop.threads.length === 0 && 
         <Box display="flex" justifyContent={'space-evenly'} alignItems={'center'} p={1.5}>
-          <Typography level="title-md">No threads yet</Typography>
+          <Typography level="title-md" sx={{mt:10}}>No threads yet</Typography>
         </Box>
       }
     </div>

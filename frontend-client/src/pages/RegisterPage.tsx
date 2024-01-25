@@ -11,6 +11,7 @@ const RegisterPage = () => {
   const [Email, setEmail] = useState<string>("")
   const [Password, setPassword] = useState<string>("")
   const [signedIn, setSignedIn] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   let user = auth.currentUser;
 
@@ -50,6 +51,8 @@ const RegisterPage = () => {
       return
     }
 
+    setLoading(true);
+
     const checkURL = checkUsernameExistsURL(Username)
 
     // Make a GET request to checkURL. if the value in "exists" is true, then the username already exists, so alert the user and return
@@ -57,11 +60,11 @@ const RegisterPage = () => {
       .then(response => response.json())
       .then(data => {
         if (data.exists) {
-          console.log("Username exists")
+          // console.log("Username exists")
           alert("Username already exists")
           return
         } else {
-          console.log("Username doesn't exist")
+          // console.log("Username doesn't exist")
         }
       })
 
@@ -161,7 +164,7 @@ const RegisterPage = () => {
                   value={Password} onChange={(e) => setPassword(e.target.value)}
                 />
               </FormControl>
-              <Button type='submit' variant="solid" color="primary">Register</Button>
+              <Button type='submit' variant="solid" color="primary" loading={loading}>Register</Button>
             </Stack>
           </form>
           <Link href="/login" color="primary" sx={{ justifyContent: 'center' }}>Already have an account? Log in</Link>

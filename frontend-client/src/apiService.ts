@@ -11,5 +11,6 @@ export const checkUsernameExistsURL = (username: string) => `${BASE_URL}/checkus
 export const createUserURL = () => `${BASE_URL}/users`;
 export const getAllCategoriesURL = () => `${BASE_URL}/categories`;
 export const getUsernameURL = (userId: string) => `${BASE_URL}/users/${userId}`;
+export const commentsURL = (commentId: string) => `${BASE_URL}/comments/${commentId}`;
 
 

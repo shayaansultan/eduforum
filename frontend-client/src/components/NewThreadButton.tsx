@@ -68,7 +68,7 @@ export const NewThreadButton: React.FC<NewThreadButtonProps> = (props) => {
         category_id: selectedCategory.category_id,
       };
 
-      console.log(body);
+      // console.log(body);
 
       const response = await fetch(threadsURL, {
         method: "POST",
@@ -87,7 +87,7 @@ export const NewThreadButton: React.FC<NewThreadButtonProps> = (props) => {
       setLastThreadId(data.thread_id);
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      // console.error(error);
     } finally {
       setOpenResponseModal(true);
     }

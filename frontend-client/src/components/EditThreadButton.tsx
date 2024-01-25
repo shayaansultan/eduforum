@@ -28,9 +28,7 @@ const EditThreadButton: React.FC<EditThreadButtonProps> = (props: EditThreadButt
 
 
   const handleEditThread = async () => {
-    console.log("Editing thread");
     const threadURL = getThreadURL(props.thread.thread_id.toString());
-    console.log(threadURL);
     setLoading(true);
     const body = {
       thread_id: props.thread.thread_id,

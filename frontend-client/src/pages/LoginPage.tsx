@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [Email, setEmail] = useState<string>("")
   const [Password, setPassword] = useState<string>("")
   const [signedIn, setSignedIn] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const user = auth.currentUser;
 
@@ -33,6 +34,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     signInWithEmailAndPassword(auth, Email, Password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -43,6 +45,7 @@ const LoginPage = () => {
         const errorMessage = error.message;
         alert(errorMessage)
       });
+    setLoading(false);
   }
 
   return (
@@ -71,7 +74,7 @@ const LoginPage = () => {
                 value={Password} onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
-            <Button type='submit' variant="solid" color="primary">Login</Button>
+            <Button type='submit' variant="solid" color="primary" loading={loading}>Login</Button>
           </Stack>
         </form>
         {/* <Link color="primary" sx={{justifyContent:'center'}}>Forgot Password?</Link> */}

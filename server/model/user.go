@@ -15,7 +15,7 @@ type User struct {
 	Email     string    `json:"email"`
 }
 
-func GetUserByID(id int) (*User, error) {
+func GetUserByID(id string) (*User, error) {
 	db := database.GetDB()
 	row := db.QueryRow("SELECT * FROM Users WHERE user_id = ?", id)
 

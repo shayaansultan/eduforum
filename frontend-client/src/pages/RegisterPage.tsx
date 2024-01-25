@@ -35,6 +35,21 @@ const RegisterPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (Username.length > 20) {
+      alert("Username must be less than 20 characters")
+      return
+    }
+
+    if (Password.length < 6) {
+      alert("Password must be at least 6 characters")
+      return
+    }
+
+    if (Password.length > 20) {
+      alert("Password must be less than 20 characters")
+      return
+    }
+
     const checkURL = checkUsernameExistsURL(Username)
 
     // Make a GET request to checkURL. if the value in "exists" is true, then the username already exists, so alert the user and return

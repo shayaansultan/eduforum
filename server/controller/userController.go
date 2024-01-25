@@ -11,11 +11,7 @@ import (
 )
 
 func GetUser(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("id"))
-	if err != nil || id <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
-		return
-	}
+	id := c.Param("id")
 
 	user, err := model.GetUserByID(id)
 	if err != nil {

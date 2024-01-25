@@ -3,11 +3,14 @@ import { Dropdown, IconButton, ListItemDecorator, Menu, MenuButton, MenuItem } f
 import { auth } from '../firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from "react";
+import { getUsernameURL } from "../apiService";
 
 const UserProfileButton = () => {
   const [signedIn, setSignedIn] = useState<boolean>(false)
+  const [username, setUsername] = useState<string>("")
 
   const user = auth.currentUser;
+
   useEffect(() => {
     if (user && !signedIn) {
       // User is signed in
@@ -17,8 +20,23 @@ const UserProfileButton = () => {
       // User is signed out
       setSignedIn(false)
     }
-  }
-    , [user])
+
+    if (user || signedIn) {
+      const usernameURL = getUsernameURL(user!.uid);
+      const response = fetch(usernameURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(response => response.json())
+        .then(data => {
+          setUsername(data.username)
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  }, [user])
 
   onAuthStateChanged(auth, (user) => {
     if (user && !signedIn) {
@@ -54,11 +72,11 @@ const UserProfileButton = () => {
         }
 
         {(signedIn) &&
-          <MenuItem onClick={() => window.location.href = "/profile"}>
+          <MenuItem disabled>
             <ListItemDecorator>
               <Person2 />
             </ListItemDecorator>
-            Profile
+            Signed in as {username}
           </MenuItem>
         }
         {signedIn &&

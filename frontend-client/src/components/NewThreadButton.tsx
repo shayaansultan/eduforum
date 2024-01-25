@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { Button, Modal, ModalDialog, DialogTitle, Stack, FormControl, FormLabel, Input, Textarea, IconButton, Divider, Typography, DialogContent, ModalClose } from '@mui/joy';
+import { Button, Modal, ModalDialog, DialogTitle, Stack, FormControl, FormLabel, Input, Textarea, IconButton, Divider, Typography, DialogContent, ModalClose, Select, Option } from '@mui/joy';
 import { Add } from "@mui/icons-material";
 import { getThreadsURL } from "../apiService";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { Category } from "../interfaces/Categories";
+
+interface NewThreadButtonProps {
+  categories: Category[];
+}
 
 
-export const NewThreadButton = () => {
+export const NewThreadButton: React.FC<NewThreadButtonProps> = (props) => {
+  const allCategories = props.categories as Category[];
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openResponseModal, setOpenResponseModal] = useState<boolean>(false);
   const [response, setResponse] = useState<String>("");
@@ -15,6 +22,7 @@ export const NewThreadButton = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [lastThreadId, setLastThreadId] = useState<number>(-1);
   const [signedIn, setSignedIn] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>(allCategories[0]);
 
   const user = auth.currentUser;
 
@@ -50,7 +58,7 @@ export const NewThreadButton = () => {
         title,
         content,
         user_id: user_id,
-        category_id: 1,
+        category_id: selectedCategory.category_id,
       };
 
       console.log(body);
@@ -108,6 +116,20 @@ export const NewThreadButton = () => {
                 <FormControl>
                   <FormLabel>Description</FormLabel>
                   <Textarea onChange={(e) => setContent(e.target.value)} minRows={3} maxRows={5} required />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    value={selectedCategory}
+                    placeholder={allCategories[0].name}
+                    defaultValue={allCategories[0]}
+                    required
+                  >
+                    {allCategories.map((category) => (
+                      <Option key={category.category_id} value={category} onClick={() => setSelectedCategory(category)}>{category.name}</Option>
+                    ))
+                    }
+                  </Select>
                 </FormControl>
                 <Button type="submit" loading={loading}>Submit</Button>
               </Stack>

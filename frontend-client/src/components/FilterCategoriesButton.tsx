@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { Categories } from "../interfaces/Categories";
+import { Category } from "../interfaces/Categories";
 import { useSearchParams } from "react-router-dom";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { FilterList } from "@mui/icons-material";
 
 
 interface FilterCategoriesButtonProps {
-  categories: Categories[]
+  categories: Category[]
 }
 
 const FilterCategoriesButton: React.FC<FilterCategoriesButtonProps> = (props) => {
-  const allCategories = props.categories as Categories[];
-  const [selectedCategories, setSelectedCategories] = useState<Categories[]>([]);
+  const allCategories = props.categories as Category[];
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const exists = searchParams.has("categories");
@@ -37,7 +37,7 @@ const FilterCategoriesButton: React.FC<FilterCategoriesButtonProps> = (props) =>
 
   console.log(selectedCategories);
 
-  const handleCategoryClick = (category: Categories) => {
+  const handleCategoryClick = (category: Category) => {
     let params = Object.fromEntries(searchParams.entries());
     let newCategories: number[] = [];
     if (params.categories) {

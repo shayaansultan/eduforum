@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import ThreadList from '../components/ThreadList';
 import { getAllCategoriesURL, getThreadsURL } from '../apiService';
 import { useSearchParams } from 'react-router-dom';
-import { Categories } from '../interfaces/Categories';
+import { Category } from '../interfaces/Categories';
 
 export const homePageLoader = async () => {
   const threadsURL = getThreadsURL();
@@ -17,9 +17,9 @@ export const homePageLoader = async () => {
 }
 
 const HomePage = () => {
-  const data = useLoaderData() as { threads: Thread[], categories: Categories[] };
+  const data = useLoaderData() as { threads: Thread[], categories: Category[] };
   const threads = data.threads as Thread[];
-  const categories = data.categories as Categories[];
+  const categories = data.categories as Category[];
   const [searchParams, _] = useSearchParams();
 
   let sortType = searchParams.get("sort");
@@ -52,7 +52,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <ThreadsHeader categories={categories}/>
+      <ThreadsHeader categories={categories} />
       <ThreadList threads={sortedData} />
     </div>
   );

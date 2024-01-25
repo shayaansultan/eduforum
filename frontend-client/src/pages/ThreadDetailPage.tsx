@@ -2,7 +2,7 @@ import { Comment } from "../interfaces/Comment";
 import { Thread } from "../interfaces/Thread";
 import CommentList from "../components/CommentList";
 import { useLoaderData } from "react-router-dom";
-import { Card, CardContent, Divider, Stack, Typography } from "@mui/joy";
+import { Card, CardContent, Chip, Divider, Stack, Typography } from "@mui/joy";
 import { useColorScheme } from '@mui/joy/styles';
 import '../styles/ThreadDetailPage.css';
 import NewCommentButton from "../components/NewCommentButton";
@@ -50,6 +50,7 @@ const ThreadDetailPage = () => {
           >
             Title: {data.thread.title}
           </Typography>
+          <Chip size='md' sx={{my:1}}>{data.thread.category_name}</Chip>
           <Typography level="body-sm">
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>

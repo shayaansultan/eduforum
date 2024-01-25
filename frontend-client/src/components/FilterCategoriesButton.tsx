@@ -17,9 +17,6 @@ const FilterCategoriesButton: React.FC<FilterCategoriesButtonProps> = (props) =>
   const exists = searchParams.has("categories");
   const selectedCategoryIds = searchParams.get("categories")?.split(",").map(Number) || [0];
 
-  console.log(allCategories);
-  console.log(selectedCategoryIds);
-
   useEffect(() => {
     if (exists && selectedCategoryIds[0] === 0) {
       let params = Object.fromEntries(searchParams.entries());
@@ -33,9 +30,6 @@ const FilterCategoriesButton: React.FC<FilterCategoriesButtonProps> = (props) =>
       }));
     }
   }, [])
-
-
-  console.log(selectedCategories);
 
   const handleCategoryClick = (category: Category) => {
     let params = Object.fromEntries(searchParams.entries());
@@ -53,7 +47,6 @@ const FilterCategoriesButton: React.FC<FilterCategoriesButtonProps> = (props) =>
     }
 
     params.categories = newCategories.join(",");
-    console.log(params);
     setSelectedCategories(() => allCategories.filter((category) => {
       return newCategories.includes(category.category_id);
     }));

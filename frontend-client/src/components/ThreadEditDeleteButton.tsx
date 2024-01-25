@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import DeleteThreadButton from "./DeleteThreadButton";
+import EditThreadButton from "./EditThreadButton";
+import { Category } from "../interfaces/Categories";
 
-interface ThreadEditDeleteButtonProps {
+interface ThreadEditDeleteRowProps {
   thread: Thread;
+  categories: Category[];
 }
 
 
-const ThreadEditDeleteRow: React.FC<ThreadEditDeleteButtonProps> = (props: ThreadEditDeleteButtonProps) => {
+const ThreadEditDeleteRow: React.FC<ThreadEditDeleteRowProps> = (props: ThreadEditDeleteRowProps) => {
   const [signedIn, setSignedIn] = useState<boolean>(false)
 
   const user = auth.currentUser;
@@ -36,12 +39,13 @@ const ThreadEditDeleteRow: React.FC<ThreadEditDeleteButtonProps> = (props: Threa
     }
   });
 
-
-
   return (
     <Stack direction="row" spacing={1}>
       {(signedIn && user?.uid === props.thread.user_id) &&
-        <DeleteThreadButton thread={props.thread} />
+        <>
+          <EditThreadButton thread={props.thread} categories={props.categories} />
+          <DeleteThreadButton thread={props.thread} />
+        </>
       }
     </Stack>
   )

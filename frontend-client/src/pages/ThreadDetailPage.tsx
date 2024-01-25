@@ -6,19 +6,22 @@ import { Card, CardContent, Chip, Divider, Stack, Typography } from "@mui/joy";
 import { useColorScheme } from '@mui/joy/styles';
 import '../styles/ThreadDetailPage.css';
 import NewCommentButton from "../components/NewCommentButton";
-import { getCommentsForThreadURL, getThreadURL } from "../apiService";
+import { getAllCategoriesURL, getCommentsForThreadURL, getThreadURL } from "../apiService";
 import ThreadEditDeleteRow from "../components/ThreadEditDeleteButton";
+import { Category } from "../interfaces/Categories";
 
 
 interface ThreadDetail {
   thread: Thread;
   comments: Comment[];
+  categories: Category[];
 }
 
 export const threadDetailPageLoader = async () => {
   const thread_id = window.location.pathname.split('/')[2];
   const commentsURL = getCommentsForThreadURL(thread_id);
   const threadURL = getThreadURL(thread_id);
+  const categoriesURL = getAllCategoriesURL();
 
   const commentsResponse = await fetch(commentsURL);
   const commentsData = await commentsResponse.json();
@@ -26,7 +29,10 @@ export const threadDetailPageLoader = async () => {
   const threadResponse = await fetch(threadURL);
   const threadData = await threadResponse.json();
 
-  return { thread: threadData, comments: commentsData } as ThreadDetail;
+  const categoriesResponse = await fetch(categoriesURL);
+  const categoriesData = await categoriesResponse.json();
+
+  return { thread: threadData, comments: commentsData, categories: categoriesData } as ThreadDetail;
 
 };
 
@@ -53,11 +59,16 @@ const ThreadDetailPage = () => {
           </Typography>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Chip size='md' sx={{ my: 1 }}>{data.thread.category_name}</Chip>
-            <ThreadEditDeleteRow thread={data.thread} />
+            <ThreadEditDeleteRow thread={data.thread} categories={data.categories} />
           </Stack>
           <Typography level="body-sm">
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>
+          {data.thread.is_edited && (
+            <Typography level="body-sm">
+              Edited at {new Date(data.thread.updated_at).toLocaleString()}
+            </Typography>)
+          }
           <br />
           <Typography level="body-md"
             sx={{

@@ -87,9 +87,7 @@ func UpdateThread(c *gin.Context) {
 		return
 	}
 
-	thread.ThreadID = id
-
-	err = model.UpdateThread(thread.ThreadID, thread.Title, thread.Content)
+	err = model.UpdateThread(thread.ThreadID, thread.Title, thread.Content, thread.CategoryID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error updating thread: %s", err.Error())})
 		return

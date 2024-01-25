@@ -45,22 +45,24 @@ const ThreadDetailPage = () => {
         variant="plain" sx={{ backgroundColor: useColorScheme().mode === "dark" ? "black" : "white" }}
       >
         <CardContent>
-          <Typography level="h2"
-            sx={{
-              textWrap: 'wrap',
-              wordWrap: 'break-word',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-            }}
-          >
-            Title: {data.thread.title}
-          </Typography>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Chip size='md' sx={{ my: 1 }}>{data.thread.category_name}</Chip>
+          <Stack direction="row" justifyContent='space-between' alignItems="center" spacing={0.5}>
+            <Typography level="h2"
+              sx={{
+                textWrap: 'wrap',
+                wordWrap: 'break-word',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {data.thread.title}
+            </Typography>
             <ThreadEditDeleteRow thread={data.thread} categories={data.categories} />
           </Stack>
+          <Chip size='md' sx={{ my: 1 }}>{data.thread.category_name}</Chip>
+
+
           <Typography level="body-sm">
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>

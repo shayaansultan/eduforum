@@ -11,7 +11,19 @@ interface ThreadCardProps {
 const ThreadCard: React.FC<ThreadCardProps> = (prop) => {
   return (
     <Card className="thread-card" size='sm' sx={{ overflow: 'hidden' }}>
-      <Typography level="title-md">{prop.thread.title}</Typography>
+      <Typography level="title-md"
+        sx={{
+          textWrap: 'wrap',
+          wordWrap: 'break-word',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+
+        }}>
+        {prop.thread.title}
+      </Typography>
       <Typography level="body-sm"
         sx={{
           textWrap: 'wrap',

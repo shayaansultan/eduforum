@@ -36,7 +36,7 @@ const LoginPage = () => {
     signInWithEmailAndPassword(auth, Email, Password)
       .then((userCredential) => {
         const user = userCredential.user;
-        alert("Login Successful" + user?.email)
+        alert("Login Successful " + user?.email)
         window.location.href = "/"
       })
       .catch((error) => {

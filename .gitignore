@@ -11,3 +11,4 @@ build/
 sql/
 # Local Netlify folder
 .netlify
+.firebase/

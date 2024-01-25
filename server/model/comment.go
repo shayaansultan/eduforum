@@ -114,3 +114,14 @@ func DeleteComment(id int) error {
 
 	return nil
 }
+
+func DeleteCommentsByThreadID(id int) error {
+	db := database.GetDB()
+	_, err := db.Exec("DELETE FROM Comments WHERE thread_id = ?", id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+

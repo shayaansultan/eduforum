@@ -7,6 +7,7 @@ import { useColorScheme } from '@mui/joy/styles';
 import '../styles/ThreadDetailPage.css';
 import NewCommentButton from "../components/NewCommentButton";
 import { getCommentsForThreadURL, getThreadURL } from "../apiService";
+import ThreadEditDeleteRow from "../components/ThreadEditDeleteButton";
 
 
 interface ThreadDetail {
@@ -50,7 +51,10 @@ const ThreadDetailPage = () => {
           >
             Title: {data.thread.title}
           </Typography>
-          <Chip size='md' sx={{my:1}}>{data.thread.category_name}</Chip>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Chip size='md' sx={{ my: 1 }}>{data.thread.category_name}</Chip>
+            <ThreadEditDeleteRow thread={data.thread} />
+          </Stack>
           <Typography level="body-sm">
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>

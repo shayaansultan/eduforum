@@ -116,3 +116,22 @@ func DeleteComment(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": res})
 }
+
+// DeleteCommentsByThreadID deletes all comments for a thread
+func DeleteCommentsByThreadID(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil || id < 1 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid thread ID"})
+		return
+	}
+
+	err = model.DeleteCommentsByThreadID(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	res := fmt.Sprintf("All comments for thread %d deleted", id)
+
+	c.JSON(http.StatusOK, gin.H{"message": res})
+}

@@ -23,7 +23,7 @@ const UserProfileButton = () => {
 
     if (user || signedIn) {
       const usernameURL = getUsernameURL(user!.uid);
-      const response = fetch(usernameURL, {
+      fetch(usernameURL, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

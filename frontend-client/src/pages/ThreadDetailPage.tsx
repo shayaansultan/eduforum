@@ -54,7 +54,7 @@ const ThreadDetailPage = () => {
             Created by: {data.thread.username} at {new Date(data.thread.created_at).toLocaleString()}
           </Typography>
           <br />
-          <Typography level="body-lg"
+          <Typography level="body-md"
             sx={{
               textWrap: 'wrap',
               wordWrap: 'break-word',

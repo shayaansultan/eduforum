@@ -48,6 +48,13 @@ export const NewThreadButton: React.FC<NewThreadButtonProps> = (props) => {
     event.preventDefault();
     setLoading(true);
 
+    if (title.length > 100) {
+      setLoading(false);
+      setResponse("Title must be less than 100 characters");
+      setOpenResponseModal(true);
+      return;
+    }
+
     try {
       const threadsURL = getThreadsURL();
       const user_id = user?.uid;

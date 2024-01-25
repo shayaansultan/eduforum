@@ -29,8 +29,14 @@ const ThreadCard: React.FC<ThreadCardProps> = (prop) => {
         <Chip size='sm'>{prop.thread.category_name}</Chip>
       </Stack>
       <Link overlay href={`/threads/${prop.thread.thread_id}`} underline="none">
-        {prop.thread.is_edited && <Typography level="body-xs">Updated at: {new Date(prop.thread.updated_at).toLocaleString()}</Typography>}
-        {!prop.thread.is_edited && <Typography level="body-xs">Created at: {new Date(prop.thread.created_at).toLocaleString()}</Typography>}
+        {prop.thread.is_edited &&
+          <Typography level="body-xs">
+            Updated at: {new Date(prop.thread.updated_at).toLocaleString()} by {prop.thread.username}
+          </Typography>}
+        {!prop.thread.is_edited &&
+          <Typography level="body-xs">
+            Created at: {new Date(prop.thread.created_at).toLocaleString()} by {prop.thread.username}
+          </Typography>}
       </Link>
     </Card>
   );

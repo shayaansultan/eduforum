@@ -104,6 +104,13 @@ func CreateThread(title string, content string, userID string, categoryID int) (
 
 func DeleteThread(id int) error {
 	db := database.GetDB()
+
+	// Delete all comments associated with the thread
+	_, err := db.Exec("DELETE FROM Comments WHERE thread_id = ?", id)
+	if err != nil {
+		return err
+	}
+
 	result, err := db.Exec("DELETE FROM Threads WHERE thread_id = ?", id)
 	if err != nil {
 		return err

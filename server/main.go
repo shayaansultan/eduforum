@@ -12,9 +12,11 @@ import (
 func main() {
 	// Initialize the database
 	// Load environment variables from .env file
-	if err := godotenv.Load(".env"); err != nil {
-		panic("Failed to load environment variables: " + err.Error())
-	}
+	// if err := godotenv.Load(".env"); err != nil {
+	// 	panic("Failed to load environment variables: " + err.Error())
+	// }
+
+	_ = godotenv.Load(".env")
 
 	// Get database connection string from environment variables
 	dbConnectionString := os.Getenv("DB_CONNECTION_STRING")

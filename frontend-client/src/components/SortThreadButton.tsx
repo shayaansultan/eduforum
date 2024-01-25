@@ -41,7 +41,7 @@ const SortThreadButton = () => {
           setSelectedSort("comments")
           setSearchParams(params)
           }} selected={selectedSort === "comments"}>
-            Comments
+            No. of Comments
         </MenuItem>
         <MenuItem onClick={() => {
           let params = Object.fromEntries(searchParams.entries());

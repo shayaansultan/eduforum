@@ -3,8 +3,7 @@ import { Categories } from "../interfaces/Categories";
 import { useSearchParams } from "react-router-dom";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { FilterList } from "@mui/icons-material";
-import { stringify } from "querystring";
-import { set } from "firebase/database";
+
 
 interface FilterCategoriesButtonProps {
   categories: Categories[]

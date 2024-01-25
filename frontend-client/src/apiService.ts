@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8080"
+import BASE_API_STRING from "../API_STRING";
+
+const BASE_URL = BASE_API_STRING;
 
 export const getThreadsURL = () => `${BASE_URL}/threads`;
 export const getThreadURL = (threadsId: string) => `${BASE_URL}/threads/${threadsId}`;

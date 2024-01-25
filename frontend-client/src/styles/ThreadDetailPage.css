@@ -1,12 +1,14 @@
 .thread-detail-card {
-    width: 60%;
+    width: 900px;
+    max-width: 90%;
     margin: 0 auto;
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
 
 .comment-title-card {
-    width: 60%;
+    width: 900px;
+    max-width: 90%;
     margin: 0 auto;
     margin-top: 1rem;
 }

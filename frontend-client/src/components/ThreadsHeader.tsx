@@ -19,7 +19,8 @@ export const ThreadsHeader: React.FC<ThreadsHeaderProps> = (props) => {
 
     >
       <Stack alignItems={'center'} direction={'row'} justifyContent={'space-between'} display={'flex'}>
-        <Typography level="h3">Threads</Typography>
+        {window.outerWidth > 768 &&
+          <Typography level="h3">Threads</Typography>}
         <Stack direction={'row'} spacing={2} >
           <NewThreadButton categories={categories} />
           <SortThreadButton />

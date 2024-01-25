@@ -1,5 +1,6 @@
 .threads-header-card {
-    width: 60%;
+    width: 900px;
+    max-width: 90%;
     margin: 0 auto;
     margin-top: 1rem;
 }

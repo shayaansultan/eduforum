@@ -8,7 +8,8 @@ You can include the deployed URL for your app in your `README.md` file using mar
 ## Live Demo
 
 You can access the live demo of the application at [https://eduforum-95bce.web.app/](https://eduforum-95bce.web.app/)
-**Note:** No longer active. Shut down due to database costs. 
+
+**Note: No longer active. Shut down due to database costs.**
 
 
 ## Technologies Used
